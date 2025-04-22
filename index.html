@@ -1,193 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUSITÂNIA II web rádio</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1e1e1e);
-      color: #ffffff;
-    }
-    header {
-      background: #4ade80;
-      color: #111;
-      padding: 20px;
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    }
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .radio-player {
-      background: #222;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-      width: 100%;
-      max-width: 500px;
-    }
-    .radio-player h2 {
-      margin-bottom: 20px;
-      color: #4ade80;
-    }
-    audio {
-      width: 100%;
-      margin-top: 10px;
-    }
-    .volume-control {
-      margin-top: 20px;
-    }
-    input[type="range"] {
-      width: 100%;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #888;
-    }
-
-    /* Chat styles */
-    .chat-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #4ade80;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
-      color: #111;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .chat-box {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 300px;
-      background: #1f1f1f;
-      border-radius: 12px;
-      overflow: hidden;
-      display: none;
-      flex-direction: column;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-    }
-
-    .chat-header {
-      background: #4ade80;
-      color: #111;
-      padding: 10px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .chat-messages {
-      flex: 1;
-      padding: 10px;
-      max-height: 250px;
-      overflow-y: auto;
-    }
-
-    .chat-input {
-      border-top: 1px solid #444;
-      display: flex;
-    }
-
-    .chat-input textarea {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      resize: none;
-      background: #2a2a2a;
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .chat-input button {
-      background: #4ade80;
-      color: #111;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-    }
-
-    .chat-message {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 10px;
-    }
-
-    .chat-message img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-
-    .chat-message-content {
-      background: #333;
-      padding: 6px 10px;
-      border-radius: 8px;
-      max-width: 200px;
-    }
-
-    /* Modal styles */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-
-    .modal-content {
-      background: #222;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      color: #fff;
-    }
-
-    .modal-content input[type="text"], .modal-content input[type="file"] {
-      margin: 10px 0;
-      padding: 8px;
-      width: 100%;
-    }
-
-    .modal-content button {
-      background: #4ade80;
-      color: #111;
-      padding: 10px 15px;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JAGUARIBE web rádio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 </head>
 <body>
-  <header>
-    📻 LUSITÂNIA II web rádio
-  </header>
-
+  <header>📻 JAGUARIBE web rádio</header>
   <main>
     <div class="radio-player">
       <h2>Ouça Nossa Rádio Ao Vivo</h2>
@@ -201,25 +23,35 @@
       </div>
     </div>
   </main>
-
   <footer>
-    &copy; 2025 LUSITÂNIA II web rádio - Todos os direitos reservados
+    &copy; 2025 JAGUARIBE web rádio - Todos os direitos reservados
   </footer>
-
-  <!-- Chat Toggle Button -->
   <button class="chat-toggle" onclick="toggleChat()">💬</button>
-
-  <!-- Chat Box -->
   <div class="chat-box" id="chatBox">
     <div class="chat-header">Chat dos Ouvintes</div>
     <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-emoji-picker" id="emojiPicker">
+      <span onclick="insertEmoji('😀')">😀</span>
+      <span onclick="insertEmoji('😂')">😂</span>
+      <span onclick="insertEmoji('😍')">😍</span>
+      <span onclick="insertEmoji('🥺')">🥺</span>
+      <span onclick="insertEmoji('😡')">😡</span>
+      <span onclick="insertEmoji('😭')">😭</span>
+      <span onclick="insertEmoji('😉')">😉</span>
+      <span onclick="insertEmoji('😘')">😘</span>
+      <span onclick="insertEmoji('😎')">😎</span>
+      <span onclick="insertEmoji('🤗')">🤗</span>
+      <span onclick="insertEmoji('🤔')">🤔</span>
+      <span onclick="insertEmoji('🥰')">🥰</span>
+      <span onclick="insertEmoji('🤩')">🤩</span>
+      <span onclick="insertEmoji('😱')">😱</span>
+      <span onclick="insertEmoji('😴')">😴</span>
+    </div>
     <div class="chat-input">
       <textarea id="chatInput" rows="2" placeholder="Digite sua mensagem..."></textarea>
-      <button onclick="sendMessage()">➤</button>
+      <button onclick="sendMessage()">➔</button>
     </div>
   </div>
-
-  <!-- Modal para nickname e avatar -->
   <div class="modal" id="userModal">
     <div class="modal-content">
       <h3>Bem-vindo ao chat!</h3>
@@ -229,85 +61,6 @@
       <button onclick="saveUserInfo()">Entrar no chat</button>
     </div>
   </div>
-
-  <script>
-    const radio = document.getElementById('radio');
-    const volumeControl = document.getElementById('volume');
-    volumeControl.addEventListener('input', function () {
-      radio.volume = this.value;
-    });
-
-    const chatBox = document.getElementById('chatBox');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-
-    let userNickname = '';
-    let userAvatar = '';
-
-    function toggleChat() {
-      if (!userNickname) {
-        document.getElementById('userModal').style.display = 'flex';
-      } else {
-        chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
-      }
-    }
-
-    function saveUserInfo() {
-      const name = document.getElementById('nickname').value.trim();
-      const fileInput = document.getElementById('avatarFile');
-      if (name === '') {
-        alert('Por favor, digite um nome.');
-        return;
-      }
-
-      userNickname = name;
-
-      const file = fileInput.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          userAvatar = e.target.result;
-          finishLogin();
-        };
-        reader.readAsDataURL(file);
-      } else {
-        userAvatar = ''; // sem imagem
-        finishLogin();
-      }
-    }
-
-    function finishLogin() {
-      document.getElementById('userModal').style.display = 'none';
-      chatBox.style.display = 'flex';
-    }
-
-    function sendMessage() {
-      const message = chatInput.value.trim();
-      if (message === '') return;
-
-      const messageDiv = document.createElement('div');
-      messageDiv.classList.add('chat-message');
-
-      const img = document.createElement('img');
-      img.src = userAvatar || 'https://via.placeholder.com/32?text=👤';
-      messageDiv.appendChild(img);
-
-      const content = document.createElement('div');
-      content.classList.add('chat-message-content');
-      content.innerHTML = `<strong>${userNickname}</strong><br>${message}`;
-      messageDiv.appendChild(content);
-
-      chatMessages.appendChild(messageDiv);
-      chatInput.value = '';
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    chatInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    });
-  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>
