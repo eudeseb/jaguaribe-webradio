@@ -139,16 +139,20 @@
   <script src="js/script.js"></script>
 
   <!-- SCRIPT PARA CONTROLAR O VÍDEO DE FUNDO -->
-  <script>
-    function toggleVideo() {
-      const video = document.getElementById('bgVideo');
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
-      }
+ <script>
+  function toggleVideo() {
+    const video = document.getElementById('bgVideo');
+    const btn = document.getElementById('videoToggleBtn');
+
+    if (video.paused) {
+      video.play();
+      btn.innerText = '⏸ Fundo'; // muda ícone para pausa
+    } else {
+      video.pause();
+      btn.innerText = '▶️ Fundo'; // muda ícone para play
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
